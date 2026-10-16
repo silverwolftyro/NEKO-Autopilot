@@ -1,0 +1,87 @@
+# 小地图像素 ↔ 世界坐标单位 比例
+#
+# ★ 当前主值 city_px_to_world = 0.389（分辨率修正后）
+#   存在一个**未解决的 2.8% 冲突**，见下方 [conflict] 段。改用前先读。
+
+[meta]
+# 参照帧分辨率（rois.toml 同源）
+reference_size = [2304, 1440]
+# 本项目实测的小地图圆形半径（rois.toml [rois.minimap_circle] 推出）
+circle_radius_px = 129.7
+
+[scale]
+# ---- 来源 A：KQM 社区实测（1920×1080 默认 UI 下的城内档）----
+kqm_reference_px_to_world = 0.42
+kqm_reference_radius_px = 120.0
+
+# ---- 来源 B：本项目实测（2304×1440 录制帧）----
+our_radius_px = 129.7
+our_reference_size = [2304, 1440]
+
+# ---- 分辨率修正后的主值 ----
+# 假设：小地图覆盖的世界范围固定，像素半径随分辨率变
+#   city_px_to_world = 0.42 * 120 / 129.7 = 0.38859
+city_px_to_world = 0.389
+# 未修正原值，保留供对照
+city_px_to_world_raw = 0.42
+
+# 上一次交叉验证给出的自洽区间（要求段1/段2 为**平地**纯走路）
+city_self_consistent = [0.3999, 0.4299]
+
+# 原神没有"界面缩放"设置（已确认）—— 分辨率缩放规则由引擎固定
+ui_scale_setting = "原神无此设置（已确认）"
+
+# ⚠️ 野外档：**纯转述值，零实测**。session_a 全程城区，
+#    log-polar 实测缩放比全程 1.00267（缩放档没变过），
+#    没有任何野外档数据。旁边标 field_verified=false 就是提醒这个。
+field_px_to_world = 1.68
+field_verified = false
+
+# 相位相关逐帧测量噪声（p99 |d|，静止基线 579 帧）
+# 来源：session_a 1511 对全量实测
+phase_corr_sigma_px = 0.109
+
+# ---------------------------------------------------------------
+# ★ [conflict] 未解决的冲突 —— 用 0.389 之前必须知道
+# ---------------------------------------------------------------
+# 约束 1（几何）：世界范围固定 -> K = 0.42 * 120/129.7 = 0.3886
+# 约束 2（交叉验证）：段1 落在公开走路速度区间 -> K >= 0.3999
+#   两者差 2.8%，**方向相反**。
+#
+# 实测对照（公开走路均速区间 4.075 Klee ~ 5.433 Jean）：
+#   K=0.420  段1 4.28 IN   段2 5.31 IN   段3 5.69 HIGH(含冲刺)
+#   K=0.389  段1 3.96 LOW  段2 4.91 IN   段3 5.26 IN
+#   两个值都是 2/3 段落在区间内，但**失败的是不同段**。
+#
+# 最可能的调和因素：**地形坡度**。KQM 那张表是平地板速，
+# 段1 若在上坡，3.96 m/s 完全合理，约束 2 就自动解除。
+# 段1 方向一致性 0.988、速度分布最紧(10.7~12.3)，是三段里最像
+# "稳定平地/缓坡行走"的，所以它给出的下限最可信 —— 但也最可能是
+# 段3 含冲刺。
+#
+# 已排除的解释：KQM 的 120px 是不是量了内边缘、我们量的是外边缘？
+#   -> **已排除**。径向亮度剖面（2880 角度平均）显示 r=112~130 全是
+#      亮的地图内容，r=120 附近**没有暗色外环**，129.7 就是内容边缘。
+#      详见 scripts/probe/exp_scale_crosscheck.py 附带的剖面测量。
+#
+# 消解办法：一次 A→B 连续走路录制（平地、已知起止点）直接测 K。
+
+[validation]
+# 交叉验证是否通过（"不矛盾"，非"正确"）
+cross_checked = true
+# 是否做过绝对标定（需要已知起止点 + 连续世界帧）
+absolutely_calibrated = false
+# 野外档是否有任何实测数据
+field_tested = false
+# 分辨率修正与交叉验证是否存在已知冲突
+has_conflict = true
+# 当前主值采用哪一侧
+city_px_to_world_source = "resolution_corrected"
+
+# 复现脚本
+#   recognition/exports/benchmark/scripts/probe/exp_scale_crosscheck.py
+#   recognition/exports/benchmark/scripts/probe/exp_phase_corr.py
+#   recognition/exports/benchmark/scripts/probe/exp_phase_scale.py
+# 报告
+#   recognition/notes/phase_correlation_report.md
+#   规划文档 §15 / §16

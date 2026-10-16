@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-09-30T20:44:15",
+  "map_id": 2,
+  "layers": [
+    "P0",
+    "N1"
+  ],
+  "plans": [
+    {
+      "layer": "P0",
+      "x": [
+        0,
+        143
+      ],
+      "y": [
+        0,
+        71
+      ],
+      "tiles": 10368,
+      "range_source": "x: meta.layer_bounds.P0, y: meta.layer_bounds.P0"
+    },
+    {
+      "layer": "N1",
+      "x": [
+        0,
+        71
+      ],
+      "y": [
+        0,
+        35
+      ],
+      "tiles": 2592,
+      "range_source": "x: meta.layer_bounds.N1, y: meta.layer_bounds.N1"
+    }
+  ],
+  "planned_tiles": 12960,
+  "success": 12585,
+  "http_404": 0,
+  "other_failures": 0,
+  "skipped_existing": 375,
+  "skipped_known_missing": 0,
+  "bytes_downloaded": 67535140,
+  "cache_bytes_after": 69973724,
+  "effective_tile_rate_percent": 100.0,
+  "elapsed_seconds": 11600.2,
+  "stopped_early": false,
+  "interrupted_by_user": false,
+  "aborted_by_throttle": false,
+  "abort_reason": null,
+  "http_requests": 12588,
+  "anti_ban": {
+    "base_interval_final": 0.5,
+    "jitter": 0.5,
+    "effective_interval": 0.75,
+    "referer": "https://act.mihoyo.com/ys/app/interactive-map/",
+    "ua_pool_size": 4,
+    "ua_rotations": 251,
+    "ua_rotate_every": 50,
+    "ua_rotation_enabled": true,
+    "batch_size": 500,
+    "batch_basis": "downloads",
+    "batch_pauses": 25,
+    "throttle_events": 0,
+    "throttle_pauses": 0,
+    "throttle_pause_seconds_total": 0.0,
+    "pause_seconds_total": 2002.8
+  },
+  "failed_log": "D:\\NEKO\\recognition\\data\\mihoyo_tiles\\failed.txt"
+}

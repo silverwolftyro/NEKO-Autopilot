@@ -1,0 +1,255 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-09-30T09:04:55.776617+00:00",
+  "script": "probe_tiles.py",
+  "base_url": "https://act-webstatic.mihoyo.com/ys-map-op/map",
+  "hash": "eea752b746ae1f2e0c1988a574f2b7b0",
+  "primary_map_id": 2,
+  "rate_limit_seconds": 0.5,
+  "anchors_used": [
+    "57,51",
+    "28,25",
+    "11,7",
+    "4,6"
+  ],
+  "notes": [],
+  "tile_size": {
+    "width": 256,
+    "height": 256,
+    "source": "pillow",
+    "sample_url": "https://act-webstatic.mihoyo.com/ys-map-op/map/2/eea752b746ae1f2e0c1988a574f2b7b0/57_51_P0.webp"
+  },
+  "hash_required": null,
+  "hash_required_detail": {
+    "skipped": true
+  },
+  "header_probe": {
+    "ua_only": 200,
+    "ua_referer": 200,
+    "ua_referer_origin": 200,
+    "no_ua": 200
+  },
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  "layers": {
+    "tested": {
+      "P0": {
+        "ok": true,
+        "available_anchor": "57,51",
+        "anchors_tried": [
+          {
+            "anchor": "57,51",
+            "status": 200,
+            "method": "HEAD"
+          }
+        ]
+      },
+      "N1": {
+        "ok": true,
+        "available_anchor": "28,25",
+        "anchors_tried": [
+          {
+            "anchor": "57,51",
+            "status": 404,
+            "method": "HEAD"
+          },
+          {
+            "anchor": "28,25",
+            "status": 200,
+            "method": "HEAD"
+          }
+        ]
+      },
+      "N3": {
+        "ok": true,
+        "available_anchor": "11,7",
+        "anchors_tried": [
+          {
+            "anchor": "57,51",
+            "status": 404,
+            "method": "HEAD"
+          },
+          {
+            "anchor": "28,25",
+            "status": 404,
+            "method": "HEAD"
+          },
+          {
+            "anchor": "11,7",
+            "status": 200,
+            "method": "HEAD"
+          }
+        ]
+      }
+    },
+    "available": [
+      "P0",
+      "N1",
+      "N3"
+    ],
+    "anchors": {
+      "P0": {
+        "x": 57,
+        "y": 51
+      },
+      "N1": {
+        "x": 28,
+        "y": 25
+      },
+      "N3": {
+        "x": 11,
+        "y": 7
+      }
+    },
+    "list_tested": [
+      "P0",
+      "N1",
+      "N3"
+    ]
+  },
+  "map_ids": {
+    "tested": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "available": [],
+    "entries": {},
+    "skipped": true
+  },
+  "layer_bounds": {
+    "P0": {
+      "map_id": 2,
+      "layer": "P0",
+      "anchor": {
+        "x": 57,
+        "y": 51
+      },
+      "method": "多锚点定位 + 倍增 + 二分法（HEAD）",
+      "monotonic_assumption": true,
+      "bounds_are_estimates": true,
+      "note": "该图层独立坐标系；结果为上界估计，范围内可能有 404 空洞",
+      "x": {
+        "min": 0,
+        "max": 143,
+        "anchor": {
+          "y": 51
+        },
+        "cap": 512,
+        "first_missing": 144,
+        "note": "二分法结果；不规则地图下这是'上界估计'，范围内可能仍有空洞"
+      },
+      "y": {
+        "min": 0,
+        "max": 71,
+        "anchor": {
+          "x": 57
+        },
+        "cap": 512,
+        "first_missing": 72,
+        "note": "二分法结果；不规则地图下这是'上界估计'，范围内可能仍有空洞"
+      }
+    },
+    "N1": {
+      "map_id": 2,
+      "layer": "N1",
+      "anchor": {
+        "x": 28,
+        "y": 25
+      },
+      "method": "多锚点定位 + 倍增 + 二分法（HEAD）",
+      "monotonic_assumption": true,
+      "bounds_are_estimates": true,
+      "note": "该图层独立坐标系；结果为上界估计，范围内可能有 404 空洞",
+      "x": {
+        "min": 0,
+        "max": 71,
+        "anchor": {
+          "y": 25
+        },
+        "cap": 512,
+        "first_missing": 72,
+        "note": "二分法结果；不规则地图下这是'上界估计'，范围内可能仍有空洞"
+      },
+      "y": {
+        "min": 0,
+        "max": 35,
+        "anchor": {
+          "x": 28
+        },
+        "cap": 512,
+        "first_missing": 36,
+        "note": "二分法结果；不规则地图下这是'上界估计'，范围内可能仍有空洞"
+      }
+    },
+    "N3": {
+      "map_id": 2,
+      "layer": "N3",
+      "anchor": {
+        "x": 11,
+        "y": 7
+      },
+      "method": "多锚点定位 + 倍增 + 二分法（HEAD）",
+      "monotonic_assumption": true,
+      "bounds_are_estimates": true,
+      "note": "该图层独立坐标系；结果为上界估计，范围内可能有 404 空洞",
+      "x": {
+        "min": 0,
+        "max": 17,
+        "anchor": {
+          "y": 7
+        },
+        "cap": 512,
+        "first_missing": 18,
+        "note": "二分法结果；不规则地图下这是'上界估计'，范围内可能仍有空洞"
+      },
+      "y": {
+        "min": 0,
+        "max": 8,
+        "anchor": {
+          "x": 11
+        },
+        "cap": 512,
+        "first_missing": 9,
+        "note": "二分法结果；不规则地图下这是'上界估计'，范围内可能仍有空洞"
+      }
+    }
+  },
+  "bounds": {
+    "map_id": 2,
+    "layer": "P0",
+    "anchor": {
+      "x": 57,
+      "y": 51
+    },
+    "method": "多锚点定位 + 倍增 + 二分法（HEAD）",
+    "monotonic_assumption": true,
+    "bounds_are_estimates": true,
+    "note": "该图层独立坐标系；结果为上界估计，范围内可能有 404 空洞",
+    "x": {
+      "min": 0,
+      "max": 143,
+      "anchor": {
+        "y": 51
+      },
+      "cap": 512,
+      "first_missing": 144,
+      "note": "二分法结果；不规则地图下这是'上界估计'，范围内可能仍有空洞"
+    },
+    "y": {
+      "min": 0,
+      "max": 71,
+      "anchor": {
+        "x": 57
+      },
+      "cap": 512,
+      "first_missing": 72,
+      "note": "二分法结果；不规则地图下这是'上界估计'，范围内可能仍有空洞"
+    }
+  },
+  "probe_methods_used": {
+    "HEAD": 80
+  }
+}

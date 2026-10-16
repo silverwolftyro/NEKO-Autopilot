@@ -1,0 +1,134 @@
+# ─────────────────────────────────────────────────────────────
+# N.E.K.O Autopilot · 发布包 .gitignore
+#
+# ★ 为什么这个文件这么长
+# ----------------------
+# 因为"漏掉一条"的后果不是文件大了一点，是**把不该公开的东西发上去了**。
+# 下面每一组都对应发布审计里真实查出来过的东西，不是预防性想象。
+# ─────────────────────────────────────────────────────────────
+
+# ── 虚拟环境 ───────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ── Python 缓存 ────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.hypothesis/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+
+# ── 构建产物 ───────────────────────────────────────────────
+build/
+dist/
+*.egg-info/
+*.egg
+wheels/
+pip-wheel-metadata/
+
+# ── 运行期产物（真机截图、状态流、寻路轨迹）──────────────────
+# ⚠️ 绝不能提交：里面有真实游戏画面。
+_runtime/
+runtime/
+*.state.json
+*.stream.jsonl
+run_current.txt
+console_bridge.json
+console_commands.jsonl
+pathfind_state.json
+nav_state.json
+state_snapshot.json
+
+# ── 用户配置（可能含本机绝对路径）───────────────────────────
+config.toml
+console/config.toml
+plugin/plugins/genshin_game_buddy/config.toml
+!config.example.toml
+!*/config.example.toml
+!console/neko_console/config/default.toml   # 出厂默认是随包的
+api_providers.json
+core_config.txt
+secrets.json
+*.key
+*.pem
+
+# ── 凭据 ───────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.netrc
+credentials*
+.netrc
+
+# ── 模型权重与训练产物（GPL / 体量）─────────────────────────
+*.onnx
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.pkl
+*.npy
+*.npz
+!plugin/plugins/genshin_game_buddy/vendor/**/*.onnx   # 仅当将来确有必要时打开
+
+# ── 大体积资产（米游社版权 / 体量，见 docs/GPL_BOUNDARY.md）──
+recognition/data/mihoyo_maps/P0_pyramid/
+recognition/data/mihoyo_maps/P0_color/
+recognition/data/mihoyo_maps/*.png
+recognition/data/mihoyo_tiles/
+recognition/exports/benchmark/visualizations/
+recognition/exports/benchmark/diagnosis/
+recognition/exports/benchmark/logs/
+recognition/exports/benchmark/_bgi_cache/
+recognition/labels/
+recognition/raw/
+recognition/models/
+
+# ── GPL 衍生数据（改过名的也要挡）────────────────────────────
+# ⚠️ `_ref_*.json` 这一条是为**改过名**的 tp.json 加的。
+#    改文件名不改变许可归属，只会让按文件名过滤的白名单失效。
+tp.json
+recognition/data/_ref_*.json
+recognition/data/*bgi*.json
+classes_bgi_*.txt
+
+# ── 归档区 ─────────────────────────────────────────────────
+_recycle/
+_archive/
+.build-tmp/
+*.bak
+*.orig
+
+# ── 日志 ───────────────────────────────────────────────────
+*.log
+logs/
+
+# ── IDE ────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+System Volume Information/
+
+# ── 宿主应用（插件是寄生在 N.E.K.O 上的，不是这个仓库的一部分）──
+# 如果你把引擎和 Console 一起 clone，把它们的宿主仓库排除掉。
+N.E.K.O-main/
+frontend/
+deps/

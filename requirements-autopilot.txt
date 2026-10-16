@@ -1,0 +1,56 @@
+# N.E.K.O Autopilot -- runtime dependencies
+#
+# !! KEEP THIS FILE ASCII-ONLY !!
+# pip decodes requirements files with the *locale* encoding, not UTF-8.
+# On a Chinese-locale Windows that is GBK, and any non-ASCII byte
+# (including a UTF-8 BOM) aborts the install with:
+#     UnicodeDecodeError: 'gbk' codec can't decode byte 0x...
+# Hence: English comments here, prose in docs/.
+
+# --- required: import-time crash without them ---------------------
+numpy>=1.26,<3
+opencv-python>=4.9          # 32 import sites, 12 of them at MODULE TOP LEVEL.
+                            # Historically declared NOWHERE -- a clean
+                            # install died at the first perception import.
+Pillow>=10.0
+pydantic>=2.7,<3
+psutil>=5.9
+PyYAML>=6.0
+
+# --- screen-capture backends (Windows) ---------------------------
+# Under hardware-accelerated fullscreen, bitblt / dxcam / mss all return
+# black frames. WGC goes through the DWM composition pipeline and is the
+# only option that does not touch the registry.
+# Missing WGC will not crash: _init_channel marks it unavailable and skips.
+# It will, however, silently degrade frame quality and rate.
+windows-capture>=2.0.1 ; sys_platform == "win32"
+mss>=9.0                    # fallback backend
+dxcam>=0.0.5 ; sys_platform == "win32"   # fallback backend
+pywin32>=306 ; sys_platform == "win32"   # win32api / win32gui / win32process
+
+# --- YOLO inference (optional) -----------------------------------
+# onnxruntime and onnxruntime-directml are MUTUALLY EXCLUSIVE. Installing
+# both into one environment overwrites the same files and leaves
+# `onnxruntime.__version__` missing -- a half-dead install.
+#   directml : Windows + discrete GPU. Measured p50 66 ms.
+#   CPU      : works, roughly an order of magnitude slower. The code only
+#              emits one warning, so a wrong install looks like
+#              "the program is a bit slow" rather than "you installed
+#              the wrong runtime".
+onnxruntime-directml>=1.18 ; sys_platform == "win32"
+# onnxruntime>=1.18            # <-- comment the line above to use CPU
+
+# --- OCR backend (optional) --------------------------------------
+rapidocr-onnxruntime>=1.3
+
+# --- training toolchain (optional, NOT runtime) ------------------
+# ultralytics is AGPL-3.0. Needed only to train/export your own model.
+# Runtime imports it ZERO times -- that boundary is deliberate, do not
+# move it into the required block for convenience.
+# matplotlib>=3.8
+# ultralytics>=8.0
+
+# NOTE: `winrt` is intentionally absent -- it is a Windows projection
+# runtime already vendored into
+# plugin/plugins/genshin_game_buddy/vendor/winrt/, so nothing has to be
+# installed system-wide. See docs/ARCHITECTURE.md.

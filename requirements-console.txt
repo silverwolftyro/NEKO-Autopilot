@@ -1,0 +1,21 @@
+# N.E.K.O Console -- runtime dependencies
+#
+# !! KEEP THIS FILE ASCII-ONLY !!  (see requirements-autopilot.txt)
+#
+# Deliberately a SEPARATE set from requirements-autopilot.txt.
+# In a real deployment these often live in two different venvs: the
+# Console only does UI and process management, while the engine needs
+# onnxruntime / opencv. Bundling them would slow Console startup.
+# [engine].python in config.toml can point at the engine's own venv
+# (leave it empty to reuse the Console's interpreter).
+
+PySide6>=6.7,<7          # PySide6, NOT PyQt6: PyQt6 is GPL and would
+                         # void the whole repo's Apache-2.0 licence.
+pydantic>=2.7,<3         # config validation + boundary clamping
+tomli-w>=1.0             # writes the bundled default.toml to the user's
+                         # config.toml on first launch
+
+# used by the map renderer in the pathfinding tab
+# (without them the map degrades to a blank canvas, it does not crash)
+numpy>=1.26,<3
+Pillow>=10.0

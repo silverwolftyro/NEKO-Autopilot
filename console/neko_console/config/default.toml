@@ -1,0 +1,90 @@
+# NEKO-Console 内置默认配置
+#
+# 本文件被打包进 exe，**只读**。程序首次启动时会用这里的值在
+# <exe 所在目录> 自动创建一份 config.toml，之后只读用户那份。
+# 想恢复默认：删掉 config.toml 重新启动即可。
+
+window_width = 1100
+window_height = 720
+
+# 启动时直接缩到托盘（不显示主窗口）
+start_minimized = false
+
+# 首次缩到托盘时弹过一次气泡提示；用户不再被打扰
+tray_notice_shown = false
+
+# 单例保护：第二次双击只提示并退出
+single_instance = true
+
+log_level = "INFO"
+theme = "dark"
+
+# ---------------------------------------------------------------------------
+# 引擎（autopilot）
+# ---------------------------------------------------------------------------
+# 换机器时改这一段即可，不用动代码。
+
+[engine]
+# 引擎仓库目录。**留空 = 自动发现**：主控台会从自身位置沿目录树往上找
+# <某层>/plugin/plugins/genshin_game_buddy。分开 clone 时填绝对路径，
+# 或设环境变量 NEKO_ENGINE_PATH。
+path = ""
+
+# 跑引擎用的 Python 解释器（绝对路径）。留空 = 复用主控台自己的解释器。
+# 分开部署时通常要单独给引擎准备一套 venv（它要 onnxruntime / pydantic）。
+python = ""
+
+# 引擎启动参数。
+# --dry-run 表示引擎用 DryRunBackend，**不会发按键**。
+# 确认整条链路正常后再改成 --live。
+args = ["--dry-run"]
+
+# 运行时目录（引擎写状态文件的地方）。
+# 留空 = 自动推导为 <path>\autopilot\_runtime
+# 想指到别处就填绝对路径。
+runtime_dir = ""
+
+# 启动引擎后主控台是否缩到托盘。
+auto_tray_on_start = false
+
+# 寻路脚本 e2e_pathfind.py 的位置。
+#
+# 留空 = 自动查找，依次试：
+#   1) 本段填的绝对路径（填了就只认这个）
+#   2) <path>\autopilot\tools\e2e_pathfind.py   （迁进插件后走这条）
+#   3) <RECOGNITION_ROOT>\exports\benchmark\scripts\misc\e2e_pathfind.py
+#
+# ★ 它现在是 recognition 仓库下的开发期脚本，不在插件里。
+#   换机器时如果脚本挪了家，改这一行就行，不用动代码。
+pathfind_script = ""
+
+# 卡片通道名（悬浮卡片走它和主控台通信）。
+card_channel = "default"
+
+# ---------------------------------------------------------------------------
+# 悬浮卡片（tkinter overlay）
+# ---------------------------------------------------------------------------
+
+[overlay]
+# 引擎启停时是否自动启停卡片。默认关 —— 你可能只想看引擎数据，
+# 不想屏幕上多一个浮窗。
+follow_engine = false
+
+# 跑卡片用的 Python。留空 = 复用 [engine].python
+# （卡片要 import tkinter + PIL，用引擎那个 venv 最稳）
+python = ""
+
+# 额外命令行参数。例如提高不透明度：args = ["--alpha", "0.85"]
+# 也可以指定初始位置：args = ["--x", "1500", "--y", "140"]
+args = []
+
+# 卡片大小倍率。1.0 = 系统默认大小。
+#
+# 这不是绝对缩放：卡片还会再乘一次系统 DPI 缩放（150% 屏上，
+# 1.0 就等于 1.5 倍物理像素）。所以这里表示「比系统默认大/小多少倍」——
+# 1.25 大两成半，0.8 小两成。合法范围 0.5 ~ 3.0。
+#
+# 一般不用改：主控台「悬浮卡片」页里拖滑块就是调这个，拖完自动写回。
+scale = 1.0
+
+

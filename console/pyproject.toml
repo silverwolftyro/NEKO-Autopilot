@@ -1,0 +1,38 @@
+[project]
+name = "neko-console"
+# ★ 不写死版本号 —— 唯一来源是 neko_console/__init__.py 的 __version__，
+#   下面 [tool.hatch.version] 会去那里读。
+dynamic = ["version"]
+description = "N.E.K.O. 3.0 主控台（独立进程）"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+
+# ★ PySide6（LGPL），不是 PyQt6（GPL）。
+#   主控台要随 N.E.K.O. 的 Apache-2.0 分发，PySide6 的 LGPL 允许，
+#   PyQt6 会要求整个产品按 GPL 分发。
+dependencies = [
+    "pyside6>=6.7,<7",
+    "pydantic>=2.0",
+    # 写 TOML 用。读 TOML 用标准库 tomllib（3.11 自带），不需要 tomli。
+    "tomli-w",
+]
+
+[project.scripts]
+neko-console = "neko_console.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# ★ 版本号的唯一来源。hatch 在构建时解析 neko_console/__init__.py
+#   里的 __version__，写死第二份必然会和代码漂移。
+[tool.hatch.version]
+path = "neko_console/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["neko_console"]
+
+# 打包出来的 default.toml 必须进 wheel，否则 pip install -e . 之后
+# 运行时找不到内置配置。
+[tool.hatch.build.targets.wheel.force-include]
+"neko_console/config/default.toml" = "neko_console/config/default.toml"

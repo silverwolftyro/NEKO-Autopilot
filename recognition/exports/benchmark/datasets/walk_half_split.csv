@@ -1,0 +1,4 @@
+﻿frame_first,frame_last,half1_px,half2_px,abs_diff_px,rel_diff_pct,heading_diff_deg,full_path_px
+a:f00383,a:f00478,50.28,44.4,5.87,12.4,35.71,97.81
+a:f00912,a:f01005,41.11,64.01,22.9,43.6,28.1,118.8
+a:f01208,a:f01314,78.79,58.52,20.27,29.5,4.24,144.96

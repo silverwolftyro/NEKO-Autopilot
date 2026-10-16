@@ -1,0 +1,15 @@
+# Development and test dependencies
+#
+#   pip install -r requirements-dev.txt
+#
+# !! KEEP THIS FILE ASCII-ONLY !!  (see requirements-autopilot.txt)
+
+-r requirements-autopilot.txt
+-r requirements-console.txt
+
+pytest>=8.0
+pytest-timeout>=2.3       # stress tests need a hard timeout, otherwise CI hangs
+
+# visualisation / benchmarks. Not required for the test suite, only for
+# the plotting scripts under autopilot/tools/.
+matplotlib>=3.8

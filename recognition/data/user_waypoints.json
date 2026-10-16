@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "created_at_ms": 1791299540046,
+  "start": null,
+  "waypoints": [
+    {
+      "x": 2176.3,
+      "z": -1053.1,
+      "note": ""
+    },
+    {
+      "x": 1544.5,
+      "z": -1032.3,
+      "note": ""
+    }
+  ],
+  "target": null
+}

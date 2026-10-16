@@ -1,0 +1,6 @@
+﻿frame_id,timestamp_sec,field_score,field_world_x,field_world_z,field_ms,city_score,city_world_x,city_world_z,city_ms,score_gap
+f00200,20.0,0.0,,,106.1,0.0,,,81.6,0.0
+f00400,40.0,0.0,,,71.6,0.0,,,73.6,0.0
+f00600,60.0,0.0,,,74.4,0.0,,,83.8,0.0
+f01000,100.0,0.0,,,81.6,0.0,,,84.0,0.0
+f01400,140.0,0.0,,,83.4,0.0,,,87.2,0.0
